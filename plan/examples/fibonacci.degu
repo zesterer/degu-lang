@@ -1,64 +1,96 @@
 /* Strict version */
 
-#import StdIn, StdOut;
+
+
+
+#import StdOut;
 
 Main:code,instance,single = {
-	in:data,instance,single = {int argc; char[] argv;};
+	in:data,instance,single = {int argc; char&& argv;};
 	out:data,instance,single = {int status;};
 
 	body:code,instance,single = {
 		a = {int = (1);};
 		b = {int = (1);};
-		count = {int = (0);};
 
 		message:data,instance,single = {char[20] = "Fibonacci %i = %i\n";};
 
 		:for(i = {int = (0)}; (i < 10); i ++) =
 		{
-			:call(StdOut.printf) = {str = (message); arg[(0)] = (count); arg[(1)] = (a);};
+			:call(StdOut.printf) = {str = (message); arg[(0)] = (i); arg[(1)] = (a);};
 			a += (b);
-			:call(StdOut.printf) = {str = (message); arg[(0)] = (count); arg[(1)] = (b);};
+			:call(StdOut.printf) = {str = (message); arg[(0)] = (i); arg[(1)] = (b);};
 			b += (a);
-
-			count --;
 		};
 
 		status = (0);
 	};
 };
 
+
+
+
 /* Relaxed version */
 
-#import StdIn, StdOut;
+
+
+
+#import StdOut;
 
 Main = {
-	in = {int argc; char[] argv};
+	in = {int argc; char&& argv};
 	out = {int status};
 
 	body = {
 		a = {int = 1};
 		b = {int = 1};
-		count = {int = 0};
 
 		message = {"Fibonacci %i = %i\n"};
 
 		:for(i = {int = 0}; i < 10; i ++) =
 		{
-			call(StdOut.printf) = {str = message; arg[0] = count; arg[1] = a};
+			call(StdOut.printf) = {str = message; arg[0] = i; arg[1] = a};
 			a += b;
-			call(StdOut.printf) = {str = message; arg[0] = count; arg[1] = b};
+			call(StdOut.printf) = {str = message; arg[0] = i; arg[1] = b};
 			b += a;
-
-			count --;
 		}
 
 		status = 0;
 	};
 };
 
-/*
 
-'spacename' is the name of something that lies within a namespace
+
+
+/* C++ equivalent */
+
+
+
+
+#include "stdio.h"
+
+int main(int argc, char* argv[])
+{
+	int a = 1;
+	int b = 1;
+
+	char[] message = "Fibonacci %i = %i\n";
+
+	for (int i = 0; i < 10; i ++)
+	{
+		std::printf(message, i, a);
+		a += b;
+		std::printf(message, i, b);
+		b += a;
+	}
+
+	return 0;
+}
+
+
+
+
+Note: 'spacename' is the name of something that lies within a namespace or is itself a namespace
 
 ## Possible block tags
 template (explicit) - Makes the block act as a template for any child block contexts (i.e: it gets turned into an instance when used, not on parent context block creation) (note: code elements of a template will not be stored on the stack) (note: templates cannot access parent context blocks)
@@ -77,5 +109,3 @@ while (explicit) - Built-in
 
 - The 'for' tag automatically adds certain tags (code, instance, single)
 - Block contexts can access singular blocks of parent contexts
-
-*/
