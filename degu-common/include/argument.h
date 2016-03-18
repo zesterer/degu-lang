@@ -14,7 +14,6 @@ namespace Degu
 {
 	namespace Common
 	{
-		void pp();
 		struct ArgumentMap
 		{
 			std::vector<std::string> arguments;
@@ -25,7 +24,7 @@ namespace Degu
 		class Argument
 		{
 		public:
-			static ArgumentMap generate_map(std::vector<std::string> arguments, std::vector<std::string> singular_tags);
+			static ArgumentMap generate_map(std::vector<std::string> arguments, std::vector<std::string> valid_tags, std::vector<std::string> valid_attributes);
 		};
 	}
 }

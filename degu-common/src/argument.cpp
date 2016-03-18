@@ -1,16 +1,15 @@
+// Standard
+#include "stdio.h"
+#include "errno.h"
+
 // Local
 #include "argument.h"
-#include "stdio.h"
+
 namespace Degu
 {
 	namespace Common
 	{
-		void pp()
-		{
-			printf("Hello, world!\n");
-		}
-
-		ArgumentMap generate_map(std::vector<std::string> arguments, std::vector<std::string> singular_tags)
+		ArgumentMap Argument::generate_map(std::vector<std::string> arguments, std::vector<std::string> valid_tags, std::vector<std::string> valid_attributes)
 		{
 			ArgumentMap argument_map;
 
@@ -27,22 +26,31 @@ namespace Degu
 					else
 						item = arguments[i].substr(1, arguments[i].size() - 1);
 
-					if (std::find(singular_tags.begin(), singular_tags.end(), item) != singular_tags.end())
+					if (std::find(valid_tags.begin(), valid_tags.end(), item) != valid_tags.end())
+					{
 						argument_map.tags.push_back(item);
-					else
+					}
+					else if (std::find(valid_attributes.begin(), valid_attributes.end(), item) != valid_attributes.end())
 					{
 						attribute = item;
+						find_attribute = true;
+					}
+					else
+					{
+						fprintf(stderr, "Error: Unknown tag '%s'\n", item.c_str());
 					}
 				}
 				else
 				{
-					if (find_attribute && attribute.size() > 0)
+					if (find_attribute)
 					{
 						argument_map.attributes[attribute] = arguments[i];
-						attribute = "";
+						find_attribute = false;
 					}
-					else
+					else if (i > 0) // Ignore the argument used to execute the program
+					{
 						argument_map.arguments.push_back(arguments[i]);
+					}
 				}
 			}
 

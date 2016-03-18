@@ -7,7 +7,7 @@ project("degu-common"
 )
 
 # Custom global project variables
-option(PROJECT_DEBUG_ENABLED ON)
+option(PROJECT_DEBUG_ENABLED TRUE)
 set(CMAKE_BUILD_TYPE RELEASE)
 
 # Define the include directories for the sub-project
@@ -27,6 +27,9 @@ set(SOURCE_FILES
 	"src/symbol.cpp"
 	"src/argument.cpp"
 )
+
+# Set up the global config file
+configure_file("include/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/config.h")
 
 add_definitions("-std=c++11" "-Wall" "-Wextra" "-Wpedantic" "-g3" "-O3")
 

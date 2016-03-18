@@ -5,7 +5,7 @@
 #include "instance.h"
 
 // degu-common
-#include "degu-common/include/types.h"
+#include "degu-common/include/config.h"
 
 namespace Degu
 {
@@ -16,14 +16,20 @@ namespace Degu
 			for (int i = 0; i < argc; i ++)
 				this->arguments.emplace_back(argv[i]);
 
-			printf("Created Degu instance\n");
+			printf("Degu %i.%i.%i\n", DEGU_COMMON_VERSION_MAJOR, DEGU_COMMON_VERSION_MINOR, DEGU_COMMON_VERSION_PATCH);
 		}
 
 		int Instance::get_response()
 		{
-			std::vector<std::string> valid_tags = {"o", "asm", "include"};
-			//this->argument_map = Common::Argument::generate_map(this->arguments, valid_tags);
-			Common::pp();
+			std::vector<std::string> valid_tags = {"o", "asm"};
+			std::vector<std::string> valid_attributes = {"include", "link"};
+			this->argument_map = Common::Argument::generate_map(this->arguments, valid_tags, valid_attributes);
+			for (std::string str : this->argument_map.tags)
+				printf("Tag '%s' enabled!\n", str.c_str());
+			for (auto const item : this->argument_map.attributes)
+				printf("Attribute '%s' set to '%s'!\n", item.first.c_str(), item.second.c_str());
+			for (std::string str : this->argument_map.arguments)
+				printf("Argument '%s' found!\n", str.c_str());
 
 			if (this->arguments.size() > 1)
 				return 0;

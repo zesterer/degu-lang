@@ -10,6 +10,7 @@ project("degu"
 set(INCLUDE_DIRS
 	"include"
 	".."
+	"${CMAKE_CURRENT_BINARY_DIR}/.."
 )
 
 # Define the sources for the sub-project
