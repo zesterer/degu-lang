@@ -16,7 +16,7 @@ set(SUB_DIRS
 	"${CMAKE_CURRENT_SOURCE_DIR}/degu-common"
 	"${CMAKE_CURRENT_SOURCE_DIR}/degu-parser"
 	"${CMAKE_CURRENT_SOURCE_DIR}/degu-optimizer"
-	"${CMAKE_CURRENT_SOURCE_DIR}/degu-backend"
+	"${CMAKE_CURRENT_SOURCE_DIR}/degu-translator"
 	"${CMAKE_CURRENT_SOURCE_DIR}/degu"
 )
 

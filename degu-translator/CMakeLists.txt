@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 cmake_policy(VERSION 3.5)
 
-project("degu-backend"
+project("degu-translator"
 	VERSION 0.0.1
 	LANGUAGES "CXX"
 )
