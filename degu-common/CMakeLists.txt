@@ -15,7 +15,7 @@ set(INCLUDE_DIRS
 set(SOURCE_FILES
 	"src/symbol.cpp"
 )
-message("FOUND THIS!")
+
 # Compiler arguments
 add_definitions("-std=c++11" "-Wall" "-Wextra" "-Wpedantic" "-g3" "-O3")
 

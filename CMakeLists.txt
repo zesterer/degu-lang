@@ -14,10 +14,10 @@ option(PROJECT_DEBUG_ENABLED ON)
 # List the sub-projects of the project needed to be built
 set(SUB_DIRS
 	"${CMAKE_CURRENT_SOURCE_DIR}/degu-common"
-	"${CMAKE_CURRENT_SOURCE_DIR}/degu-parser"
-	"${CMAKE_CURRENT_SOURCE_DIR}/degu-optimizer"
-	"${CMAKE_CURRENT_SOURCE_DIR}/degu-translator"
-	"${CMAKE_CURRENT_SOURCE_DIR}/degu"
+	#"${CMAKE_CURRENT_SOURCE_DIR}/degu-parser"
+	#"${CMAKE_CURRENT_SOURCE_DIR}/degu-optimizer"
+	#"${CMAKE_CURRENT_SOURCE_DIR}/degu-translator"
+	"${CMAKE_CURRENT_SOURCE_DIR}/degu-compiler"
 )
 
 # Iterate over the sub-projects

@@ -1,3 +1,6 @@
+#ifndef DEGU_DEGU_COMMON_TYPES_H
+#define DEGU_DEGU_COMMON_TYPES_H
+
 // Standard headers
 #include "stddef.h"
 #include "stdint.h"
@@ -33,3 +36,5 @@ namespace Degu
 	typedef unsigned int   uint;
 	typedef unsigned long  ulong;
 }
+
+#endif
