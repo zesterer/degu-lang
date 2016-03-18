@@ -1,0 +1,81 @@
+/* Strict version */
+
+#import StdIn, StdOut;
+
+Main:code,instance,single = {
+	in:data,instance,single = {int argc; char[] argv;};
+	out:data,instance,single = {int status;};
+
+	body:code,instance,single = {
+		a = {int = (1);};
+		b = {int = (1);};
+		count = {int = (0);};
+
+		message:data,instance,single = {char[20] = "Fibonacci %i = %i\n";};
+
+		:for(i = {int = (0)}; (i < 10); i ++) =
+		{
+			:call(StdOut.printf) = {str = (message); arg[(0)] = (count); arg[(1)] = (a);};
+			a += (b);
+			:call(StdOut.printf) = {str = (message); arg[(0)] = (count); arg[(1)] = (b);};
+			b += (a);
+
+			count --;
+		};
+
+		status = (0);
+	};
+};
+
+/* Relaxed version */
+
+#import StdIn, StdOut;
+
+Main = {
+	in = {int argc; char[] argv};
+	out = {int status};
+
+	body = {
+		a = {int = 1};
+		b = {int = 1};
+		count = {int = 0};
+
+		message = {"Fibonacci %i = %i\n"};
+
+		:for(i = {int = 0}; i < 10; i ++) =
+		{
+			call(StdOut.printf) = {str = message; arg[0] = count; arg[1] = a};
+			a += b;
+			call(StdOut.printf) = {str = message; arg[0] = count; arg[1] = b};
+			b += a;
+
+			count --;
+		}
+
+		status = 0;
+	};
+};
+
+/*
+
+'spacename' is the name of something that lies within a namespace
+
+## Possible block tags
+template (explicit) - Makes the block act as a template for any child block contexts (i.e: it gets turned into an instance when used, not on parent context block creation) (note: code elements of a template will not be stored on the stack) (note: templates cannot access parent context blocks)
+instance (implicit) - Makes the block act as a literal value (stored on the stack) for any child block contexts (note: code elements of an instance will not be stored on the stack)
+
+code (implicit) - Alerts the compiler that the block may contain code
+data (implicit) - Alerts the compiler that the block is data-only
+
+single (implicit) - Alerts the compiler that the block applies to all blocks within this spacename
+plural (implicit) - Alerts the compiler that the block is unique to each instance of the parent block (note: only applies if the child is a template and can be instantiated)
+
+call (explicit) - Built-in. Alerts the compiler that the block is a call indirect (i.e: it executes a procedure)
+if (explicit) - Built-in
+for (explicit) - Built-in
+while (explicit) - Built-in
+
+- The 'for' tag automatically adds certain tags (code, instance, single)
+- Block contexts can access singular blocks of parent contexts
+
+*/
