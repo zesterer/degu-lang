@@ -13,12 +13,18 @@ option(PROJECT_DEBUG_ENABLED ON)
 
 # List the sub-projects of the project needed to be built
 set(SUB_DIRS
-	"${CMAKE_CURRENT_SOURCE_DIR}/degu-common"
-	#"${CMAKE_CURRENT_SOURCE_DIR}/degu-parser"
-	#"${CMAKE_CURRENT_SOURCE_DIR}/degu-optimizer"
-	#"${CMAKE_CURRENT_SOURCE_DIR}/degu-translator"
-	"${CMAKE_CURRENT_SOURCE_DIR}/degu-compiler"
+	"degu-common"
+	#"degu-parser"
+	#"degu-optimizer"
+	#"degu-translator"
+	"degu-compiler"
 )
+
+if (CMAKE_BUILD_TYPE STREQUAL Debug)
+    set(BUILD_POSTFIX "_d")
+else(CMAKE_BUILD_TYPE STREQUAL Debug)
+    set(BUILD_POSTFIX "")
+endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 
 # Iterate over the sub-projects
 foreach (DIR IN ITEMS ${SUB_DIRS})

@@ -8,7 +8,7 @@ project("degu-optimizer"
 
 # Define the include directories for the sub-project
 set(INCLUDE_DIRS
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	"include"
 )
 
 # Define the sources for the sub-project

@@ -5,6 +5,9 @@
 #include "vector"
 #include "string"
 
+// degu-common
+#include "degu-common/include/argument.h"
+
 namespace Degu
 {
 	namespace Degu
@@ -13,6 +16,7 @@ namespace Degu
 		{
 		private:
 			std::vector<std::string> arguments;
+			Common::ArgumentMap argument_map;
 		public:
 			Instance(int argc, char* argv[]);
 			int get_response();
