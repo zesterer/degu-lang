@@ -72,7 +72,7 @@ Factorial calculator program
 ```
 #import stdout, stdconvert;
 
-factorial(int n, int out)
+factorial(int n ~ int out)
 {
 	if (n > 1)
 		out = n * factorial(n - 1);
