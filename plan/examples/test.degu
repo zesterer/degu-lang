@@ -1,0 +1,128 @@
+// Import is similar to C and C++'s #include, except it may act on multiple files at once and automatically detects file extension
+#import stdin, stdout, "a template file";
+
+// Forward declaration of a namespaced class
+public class MyName:MyClass;
+
+// Function argument and return data is allocated at the start of a function call in syntax
+// The '~' syntax notates a transient link between the function input and the function output
+add_five(int input ~ int output)
+{
+	output = input + 5;
+}
+
+namespace MyNamespace // C++-like namespaces, but namespace access is done using ":", not "::"
+{
+	// Structs do not exist in Degu. Their functionality can be fully replicated by classes
+	// Class access operators determines whether a class can be accessed outside it's namespace
+	public class MyStruct
+	{
+	// C++-style access operators are supported as well as Java-style access operators
+	public:
+		// Variables of similar type can be chain-assigned
+		float c, d = 3.4f, 5.5f;
+
+		// Only one function argument and return value is permitted. To pass / return multiple values, use a tuple
+		get_values(void ~ <int c, int d>)
+		{
+			// Pointer indirection is done using the right-side '@' operator. '@' also acts as a dereference operator if used on the tail of an indirection chain
+			c = this@.c;
+			d = this@.d;
+		}
+
+		set_values(<float c, float d> ~ void)
+		{
+			// More chain-assignment
+			this@.c, this@.d = c, d;
+		}
+	}
+}
+
+// Classes can be defined within a namespace by using a namespace name in their definition
+public class MyNamespace:MyClass
+{
+	public int a, b;
+
+	// Functions are first-class objects in Degu and have a type composed of argument and return datatypes
+	// Functions can be referenced by a function pointer
+	// All pointer datatypes are compatible with void*, as with C and C++
+	public (int n)(int x)* custom_func = void*;
+
+	// Constructors must be called 'construct'
+	// Unlike C++, constructors can optionally return data
+	public construct(<int a, int b> ~ void)
+	{
+		this@.a = a;
+		this@.b = b;
+
+		stdout:print("Created instance of MyClass\n");
+	}
+
+	// Destructors must be called 'destruct'
+	// Although destructors can be passed arguments and can return data, there is rarely any use for this.
+	public destruct()
+	{
+		// Passing a pointer to a function that expects type void* is valid due to void* compatibility
+		stdout.print_format("Destroying MyClass instance at %p\n", this);
+	}
+
+	// Some functions have no arguments and return nothing, so there is a syntax shortcut for this
+	public print_values()
+	{
+		// Standard library is designed to be readable more than it is fast to type
+		// If you want something to be fast to type, a
+		stdout:print_format("Values are %i, %i\n", this@.a, this@.b);
+	}
+}
+
+public class
+
+// Methods allocate space for both argument and return data on function call in syntax as well as in proceduced backend code
+// Pointer and array tags are a property of the type, not the variable
+main (<int argc, char[][] argv> ~ int status)
+{
+	// Symbol expansion is evaluated according to code context, not as a global system
+	#define $VERSION_MAJOR "0";
+	#define $VERSION_MINOR "0";
+	#define $VERSION_PATCH "1";
+
+	// Symbol expansion in use
+	stdout:print_format("Version: %i.%i.%i\n", $VERSION_MAJOR, $VERSION_MINOR, $VERSION_PATCH);
+
+	stdout:print("Counting Fibonacci...\n");
+
+	// Chain-assignment
+	int a, b = 1, 1;
+
+	// For loops and many other conditionals are semantically identical to C++
+	for (int i = 0; i < 10; i += 2)
+	{
+		stdout:print_format("Fibonacci %i = %i\n", i, a);
+		a += b;
+		stdout:print_format("Fibonacci %i = %i\n", i, b);
+		b += a;
+	}
+
+	// Immediate construction (from the compiler's point of view, this is delayed construction because space for the instance is allocated when the function is called)
+	MyNamespace:MyClass my_instance.construct(a, b);
+	my_instance.print_values();
+
+	// Delayed construction
+	MyNamespace:MyClass my_instance_2;
+	my_instance_2.construct(321, 123);
+
+	// Destructors do not deallocate.
+	my_instance_2.destruct();
+
+	// Classes can also be allocated in a single line with a type-compatible tuple for use in other code. However, use of tuples instead where applicable is encouraged
+	MyNamespace:MyStruct<3.5f, 7.0f>;
+
+	// Classes can be assigned with type-compatible tuples too
+	MyNamespace:MyStruct my_struct = <5.35f, 2.f>;
+
+	// Assign a value to the return data
+	status = 0;
+
+	// A function can be prematurely exited with the 'end' statement
+	end;
+}
