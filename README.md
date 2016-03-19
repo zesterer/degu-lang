@@ -80,7 +80,7 @@ factorial(int n, int out)
 		out = 1;
 }
 
-main(<int argc, char[][] argv> ~ int status)
+main(<int argc, char[]* argv> ~ int status)
 {
 	if (argc < 2)
 	{
