@@ -2,7 +2,7 @@
 #import stdin, stdout, "a template file";
 
 // Forward declaration of a namespaced class
-public class MyName:MyClass;
+public class MyNamespace:MyClass;
 
 // Function argument and return data is allocated at the start of a function call in syntax
 // The '~' syntax notates a transient link between the function input and the function output

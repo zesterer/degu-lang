@@ -1,9 +1,9 @@
 <machine id = "CommentCleaner" entry = "nocomment">
 	<state id = "noncomment">
-		<input type = "alphanumeric" input = "null">
+		<condition type = "alphanumeric" input = "null">
 			<action type = "symbol-append" data = "input"></action>
 			<action type = "symbol-new" data = "input"></action>
 			<action type = "state-change" data = "nocomment"></action>
-		</input>
+		</condition>
 	</state>
 </machine>

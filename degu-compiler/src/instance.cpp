@@ -7,6 +7,9 @@
 // degu-common
 #include "degu-common/include/config.h"
 
+// degu-parser
+#include "degu-parser/include/parser.h"
+
 namespace Degu
 {
 	namespace Degu
@@ -31,7 +34,9 @@ namespace Degu
 			for (std::string str : this->argument_map.arguments)
 				printf("Argument '%s' found!\n", str.c_str());
 
-			if (this->arguments.size() > 1)
+			Parser::Parser my_parser;
+
+			if (this->arguments.size() > 0)
 				return 0;
 			else
 				return 1;

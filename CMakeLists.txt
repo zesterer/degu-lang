@@ -14,9 +14,10 @@ option(PROJECT_DEBUG_ENABLED ON)
 # List the sub-projects of the project needed to be built
 set(SUB_DIRS
 	"degu-common"
-	#"degu-parser"
-	#"degu-optimizer"
-	#"degu-translator"
+	"degu-parser"
+	"degu-lexer"
+	"degu-optimizer"
+	"degu-translator"
 	"degu-compiler"
 )
 
