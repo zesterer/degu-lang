@@ -7,6 +7,8 @@
 // degu-common
 #include "degu-common/include/config.h"
 #include "degu-common/include/input_file_node.h"
+#include "degu-common/include/file_reader.h"
+#include "degu-common/include/critical_error.h"
 
 // degu-parser
 #include "degu-parser/include/parser.h"
@@ -48,6 +50,28 @@ namespace Degu
 					printf("Input file '%s' if of type 'object'\n", file.filename.c_str());
 				else
 					printf("Input file '%s' if of type 'unknown'\n", file.filename.c_str());
+			}
+
+			std::vector<Common::TextFile> source_files;
+			for (Common::InputFileNode node : input_file_node_vector)
+			{
+				try
+				{
+					Common::TextFile file = Common::FileReader::read_plaintext(node.filename);
+					source_files.push_back(file);
+				}
+				catch (Common::CriticalError error)
+				{
+					if (error.type == Common::CRIT_ERR_CANNOT_OPEN_FILE)
+						printf("Critical error: Cannot open file '%s'\n", error.data[0].c_str());
+					else
+						printf("Critical error when attempting to read file '%s'\n", node.filename.c_str());
+				}
+			}
+
+			for (Common::TextFile file : source_files)
+			{
+				printf("Source file '%s' contains:\n%s\n", file.name.c_str(), file.data.c_str());
 			}
 
 			if (this->arguments.size() > 0)

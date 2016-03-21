@@ -10,10 +10,10 @@ namespace Degu
 	{
 		struct TextFile
 		{
-			std::string filename;
+			std::string name;
 			std::string data;
 
-			TextFile(std::string filename, std::string data);
+			TextFile(std::string name, std::string data);
 		};
 	}
 }

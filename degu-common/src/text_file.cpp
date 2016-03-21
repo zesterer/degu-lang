@@ -5,9 +5,9 @@ namespace Degu
 {
 	namespace Common
 	{
-		TextFile::TextFile(std::string filename, std::string data)
+		TextFile::TextFile(std::string name, std::string data)
 		{
-			this->filename = filename;
+			this->name = name;
 			this->data = data;
 		}
 	}
