@@ -1,5 +1,5 @@
-#ifndef DEGU_DEGU_COMMON_SYMBOL_H
-#define DEGU_DEGU_COMMON_SYMBOL_H
+#ifndef DEGU_DEGU_COMMON_ARGUMENT_H
+#define DEGU_DEGU_COMMON_ARGUMENT_H
 
 // Standard
 #include "vector"

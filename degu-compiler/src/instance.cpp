@@ -6,6 +6,7 @@
 
 // degu-common
 #include "degu-common/include/config.h"
+#include "degu-common/include/input_file_node.h"
 
 // degu-parser
 #include "degu-parser/include/parser.h"
@@ -34,7 +35,20 @@ namespace Degu
 			for (std::string str : this->argument_map.arguments)
 				printf("Argument '%s' found!\n", str.c_str());
 
-			Parser::Parser my_parser;
+			std::vector<Common::InputFileNode> input_file_node_vector;
+
+			for (std::string filename : this->argument_map.arguments)
+				input_file_node_vector.push_back(Common::InputFileNode::construct(filename));
+
+			for (Common::InputFileNode file : input_file_node_vector)
+			{
+				if (file.type == Common::IN_FILE_SOURCE)
+					printf("Input file '%s' if of type 'source'\n", file.filename.c_str());
+				else if (file.type == Common::IN_FILE_OBJECT)
+					printf("Input file '%s' if of type 'object'\n", file.filename.c_str());
+				else
+					printf("Input file '%s' if of type 'unknown'\n", file.filename.c_str());
+			}
 
 			if (this->arguments.size() > 0)
 				return 0;

@@ -26,6 +26,11 @@ set(INCLUDE_FILES
 set(SOURCE_FILES
 	"src/symbol.cpp"
 	"src/argument.cpp"
+	"src/source_ref.cpp"
+	"src/source_err.cpp"
+	"src/text_file.cpp"
+	"src/file_reader.cpp"
+	"src/input_file_node.cpp"
 )
 
 # Set up the global config file
